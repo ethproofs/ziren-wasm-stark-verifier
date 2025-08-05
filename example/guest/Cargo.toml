@@ -1,0 +1,8 @@
+[package]
+name = "fibonacci-guest"
+version = "1.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+zkm-zkvm.workspace = true
