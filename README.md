@@ -37,6 +37,7 @@ pub fn verify_groth16(proof: &[u8], public_inputs: &[u8], zkm_vk_hash: &str) -> 
 Next, run the host to generate `fibonacci_groth16_proof.json` and `fibonacci_plonk_proof.json`. From the `example/host` directory, run:
 
 ```bash
+cargo run --release -- --mode stark
 cargo run --release -- --mode groth16
 cargo run --release -- --mode plonk
 ```
@@ -44,11 +45,12 @@ cargo run --release -- --mode plonk
 By default, this will *not* generate fresh proofs from the program in `example/guest`. To generate fresh proofs, run:
 
 ```bash
+cargo run --release -- --mode stark --prove
 cargo run --release -- --mode groth16 --prove
 cargo run --release -- --mode plonk --prove
 ```
 
-Here, groth16 and plonk proofs are generated using `client.prove(&pk, stdin).groth16().run()` and `client.prove(&pk, stdin).plonk().run()`, respectively.
+Here, stark, groth16 and plonk proofs are generated using `client.prove(&pk, stdin).compressed().run()`, `client.prove(&pk, stdin).groth16().run()` and `client.prove(&pk, stdin).plonk().run()`, respectively.
 See the [Ziren docs](https://docs.zkm.io/dev/prover.html#proof-types) for more details.
 
 From a [`ZKMProofWithPublicValues`](https://github.com/ProjectZKM/Ziren/blob/main/crates/sdk/src/proof.rs#L37),
@@ -61,6 +63,8 @@ let fixture = ProofData {
     proof: hex::encode(proof.bytes()),
     public_inputs: hex::encode(proof.public_values),
     vkey_hash: vk.bytes32(),
+    vkey,
+    zkm_version: proof.zkm_version,
     mode: args.mode,
 };
 
@@ -88,7 +92,7 @@ const fileContent = fs.readFileSync(path.join("../json", file), 'utf8');
 const proof_json = JSON.parse(fileContent);
 
 // Determine the ZKP type (Groth16 or Plonk) based on the filename
-const zkpType = file.toLowerCase().includes('groth16') ? 'groth16' : 'plonk';
+const zkpType = file_name.includes('groth16') ? 'groth16' : file_name.includes('plonk')? 'plonk' : 'stark';
 const proof = fromHexString(proof_json.proof);
 const public_inputs = fromHexString(proof_json.public_inputs);
 const vkey_hash = proof_json.vkey_hash;
@@ -105,13 +109,24 @@ console.log(`n: ${n}`);
 console.log(`a: ${a}`);
 console.log(`b: ${b}`);
 
-// Select the appropriate verification function and verification key based on ZKP type
-const verifyFunction = zkpType === 'groth16' ? wasm.verify_groth16 : wasm.verify_plonk;
+if (zkpType == 'stark') {
+    const vkey = fromHexString(proof_json.vkey);
 
-assert(verifyFunction(proof, public_inputs, vkey_hash));
-console.log(`Proof in ${file} is valid.`);
+    const startTime = performance.now();
+    const result = wasm.verify_stark(proof, public_inputs, vkey);
+    const endTime = performance.now();
+    console.log(`${zkpType} verification took ${endTime - startTime}ms`);
+    assert(result);
+    console.log(`Proof in ${file} is valid.`);
+} else {
+    // Select the appropriate verification function and verification key based on ZKP type
+    const verifyFunction = zkpType === 'groth16' ? wasm.verify_groth16 : wasm.verify_plonk;
+
+    const startTime = performance.now();
+    const result = verifyFunction(proof, public_inputs, vkey_hash);
+    const endTime = performance.now();
+    console.log(`${zkpType} verification took ${endTime - startTime}ms`);
+    assert(result);
+    console.log(`Proof in ${file} is valid.`);
+}
 ```
-
-# Reference
-
-[example-sp1-wasm-verifier](https://github.com/succinctlabs/example-sp1-wasm-verifier.git)

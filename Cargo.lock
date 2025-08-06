@@ -308,7 +308,7 @@ dependencies = [
  "alloy-rlp",
  "alloy-serde",
  "alloy-sol-types",
- "itertools 0.14.0",
+ "itertools 0.13.0",
  "serde",
  "serde_json",
  "thiserror 2.0.12",
@@ -2896,11 +2896,12 @@ dependencies = [
 name = "host"
 version = "0.1.0"
 dependencies = [
+ "bincode",
  "clap",
  "hex",
  "serde",
  "serde_json",
- "zkm-build",
+ "zkm-build 1.1.1 (git+https://github.com/ProjectZKM/Ziren)",
  "zkm-sdk",
 ]
 
@@ -3368,15 +3369,6 @@ name = "itertools"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
-dependencies = [
- "either",
-]
-
-[[package]]
-name = "itertools"
-version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
 dependencies = [
  "either",
 ]
@@ -4873,7 +4865,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.14.0",
+ "itertools 0.13.0",
  "proc-macro2",
  "quote",
  "syn 2.0.104",
@@ -6028,7 +6020,7 @@ dependencies = [
  "num-bigint 0.4.6",
  "rand 0.8.5",
  "rustc-hex",
- "zkm-lib",
+ "zkm-lib 1.1.1 (git+https://github.com/ProjectZKM/Ziren)",
 ]
 
 [[package]]
@@ -7659,6 +7651,18 @@ dependencies = [
 [[package]]
 name = "zkm-build"
 version = "1.1.1"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
+dependencies = [
+ "anyhow",
+ "cargo_metadata",
+ "chrono",
+ "clap",
+ "dirs",
+]
+
+[[package]]
+name = "zkm-build"
+version = "1.1.1"
 source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
 dependencies = [
  "anyhow",
@@ -7671,7 +7675,7 @@ dependencies = [
 [[package]]
 name = "zkm-core-executor"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "anyhow",
  "bincode",
@@ -7705,14 +7709,14 @@ dependencies = [
  "typenum",
  "vec_map",
  "zkm-curves",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-stark",
 ]
 
 [[package]]
 name = "zkm-core-machine"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "bincode",
  "cfg-if",
@@ -7757,14 +7761,14 @@ dependencies = [
  "zkm-core-executor",
  "zkm-curves",
  "zkm-derive",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-stark",
 ]
 
 [[package]]
 name = "zkm-curves"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "cfg-if",
  "curve25519-dalek",
@@ -7779,17 +7783,30 @@ dependencies = [
  "serde",
  "snowbridge-amcl",
  "typenum",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-stark",
 ]
 
 [[package]]
 name = "zkm-derive"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "quote",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "zkm-lib"
+version = "1.1.1"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
+dependencies = [
+ "bincode",
+ "cfg-if",
+ "elliptic-curve",
+ "serde",
+ "sha2",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
 ]
 
 [[package]]
@@ -7802,7 +7819,25 @@ dependencies = [
  "elliptic-curve",
  "serde",
  "sha2",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/ProjectZKM/Ziren)",
+]
+
+[[package]]
+name = "zkm-primitives"
+version = "1.1.1"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
+dependencies = [
+ "bincode",
+ "hex",
+ "lazy_static",
+ "num-bigint 0.4.6",
+ "p3-field",
+ "p3-koala-bear",
+ "p3-monty-31",
+ "p3-poseidon2",
+ "p3-symmetric",
+ "serde",
+ "sha2",
 ]
 
 [[package]]
@@ -7826,7 +7861,7 @@ dependencies = [
 [[package]]
 name = "zkm-prover"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "anyhow",
  "bincode",
@@ -7854,7 +7889,7 @@ dependencies = [
  "tracing-subscriber",
  "zkm-core-executor",
  "zkm-core-machine",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-recursion-circuit",
  "zkm-recursion-compiler",
  "zkm-recursion-core",
@@ -7865,7 +7900,7 @@ dependencies = [
 [[package]]
 name = "zkm-recursion-circuit"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "hashbrown 0.14.5",
  "itertools 0.13.0",
@@ -7888,7 +7923,7 @@ dependencies = [
  "zkm-core-executor",
  "zkm-core-machine",
  "zkm-derive",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-recursion-compiler",
  "zkm-recursion-core",
  "zkm-recursion-gnark-ffi",
@@ -7898,7 +7933,7 @@ dependencies = [
 [[package]]
 name = "zkm-recursion-compiler"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "backtrace",
  "itertools 0.13.0",
@@ -7910,7 +7945,7 @@ dependencies = [
  "tracing",
  "vec_map",
  "zkm-core-machine",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-recursion-core",
  "zkm-recursion-derive",
  "zkm-stark",
@@ -7919,7 +7954,7 @@ dependencies = [
 [[package]]
 name = "zkm-recursion-core"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "backtrace",
  "ff 0.13.1",
@@ -7948,14 +7983,14 @@ dependencies = [
  "zkhash",
  "zkm-core-machine",
  "zkm-derive",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-stark",
 ]
 
 [[package]]
 name = "zkm-recursion-derive"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -7964,7 +7999,7 @@ dependencies = [
 [[package]]
 name = "zkm-recursion-gnark-ffi"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "anyhow",
  "bincode",
@@ -7989,7 +8024,7 @@ dependencies = [
 [[package]]
 name = "zkm-sdk"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "alloy-signer",
  "alloy-signer-local",
@@ -8025,10 +8060,10 @@ dependencies = [
  "twirp-rs",
  "uuid 1.17.0",
  "vergen",
- "zkm-build",
+ "zkm-build 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-core-executor",
  "zkm-core-machine",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-prover",
  "zkm-stark",
 ]
@@ -8036,7 +8071,7 @@ dependencies = [
 [[package]]
 name = "zkm-stark"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "arrayref",
  "hashbrown 0.14.5",
@@ -8071,21 +8106,35 @@ dependencies = [
  "tracing-forest",
  "tracing-subscriber",
  "zkm-derive",
- "zkm-primitives",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
  "zkm-zkvm",
 ]
 
 [[package]]
 name = "zkm-verifier"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "anyhow",
+ "bincode",
  "hex",
+ "itertools 0.13.0",
  "lazy_static",
+ "p3-commit",
+ "p3-field",
+ "p3-koala-bear",
+ "p3-symmetric",
+ "p3-util",
+ "rayon",
+ "serde",
  "sha2",
  "substrate-bn",
  "thiserror 2.0.12",
+ "zkm-core-executor",
+ "zkm-core-machine",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
+ "zkm-recursion-core",
+ "zkm-stark",
 ]
 
 [[package]]
@@ -8099,7 +8148,7 @@ dependencies = [
 [[package]]
 name = "zkm-zkvm"
 version = "1.1.1"
-source = "git+https://github.com/ProjectZKM/Ziren#04bd2e68acc50eda1c5eb83dc2ef9edcfbd4719d"
+source = "git+https://github.com/felicityin/zkMIPS?branch=stark-verifier#4216db614e97575d439be5044486b83ac85f5955"
 dependencies = [
  "bincode",
  "cfg-if",
@@ -8109,8 +8158,8 @@ dependencies = [
  "rand 0.8.5",
  "serde",
  "sha2",
- "zkm-lib",
- "zkm-primitives",
+ "zkm-lib 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
+ "zkm-primitives 1.1.1 (git+https://github.com/felicityin/zkMIPS?branch=stark-verifier)",
 ]
 
 [[package]]

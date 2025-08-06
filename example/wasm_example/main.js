@@ -24,7 +24,8 @@ for (const file of files) {
         const proof_json = JSON.parse(fileContent);
 
         // Determine the ZKP type (Groth16 or Plonk) based on the filename
-        const zkpType = file.toLowerCase().includes('groth16') ? 'groth16' : 'plonk';
+        const file_name = file.toLowerCase();
+        const zkpType = file_name.includes('groth16') ? 'groth16' : file_name.includes('plonk')? 'plonk' : 'stark';
         const proof = fromHexString(proof_json.proof);
         const public_inputs = fromHexString(proof_json.public_inputs);
         const vkey_hash = proof_json.vkey_hash;
@@ -41,15 +42,26 @@ for (const file of files) {
         console.log(`a: ${a}`);
         console.log(`b: ${b}`);
 
-        // Select the appropriate verification function and verification key based on ZKP type
-        const verifyFunction = zkpType === 'groth16' ? wasm.verify_groth16 : wasm.verify_plonk;
+        if (zkpType == 'stark') {
+            const vkey = fromHexString(proof_json.vkey);
 
-        const startTime = performance.now();
-        const result = verifyFunction(proof, public_inputs, vkey_hash);
-        const endTime = performance.now();
-        console.log(`${zkpType} verification took ${endTime - startTime}ms`);
-        assert(result);
-        console.log(`Proof in ${file} is valid.`);
+            const startTime = performance.now();
+            const result = wasm.verify_stark(proof, public_inputs, vkey);
+            const endTime = performance.now();
+            console.log(`${zkpType} verification took ${endTime - startTime}ms`);
+            console.assert(result, "result:", result, "proof should be valid");
+            console.log(`Proof in ${file} is valid.`);
+        } else {
+            // Select the appropriate verification function and verification key based on ZKP type
+            const verifyFunction = zkpType === 'groth16' ? wasm.verify_groth16 : wasm.verify_plonk;
+
+            const startTime = performance.now();
+            const result = verifyFunction(proof, public_inputs, vkey_hash);
+            const endTime = performance.now();
+            console.log(`${zkpType} verification took ${endTime - startTime}ms`);
+            console.assert(result, "result:", result, "proof should be valid");
+            console.log(`Proof in ${file} is valid.`);
+        }
     } catch (error) {
         console.error(`Error processing ${file}: ${error.message}`);
     }

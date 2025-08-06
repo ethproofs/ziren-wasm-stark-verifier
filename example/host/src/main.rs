@@ -12,6 +12,8 @@ struct ProofData {
     proof: String,         // hex string
     public_inputs: String, // hex string
     vkey_hash: String,     // vk.bytes32()
+    vkey: String,
+    zkm_version: String,
     mode: String,
 }
 
@@ -55,6 +57,11 @@ fn main() {
     if args.prove {
         // Generate a proof for the specified program
         let proof = match args.mode.as_str() {
+            "stark" => client
+                .prove(&pk, stdin)
+                .compressed()
+                .run()
+                .expect("Stark proof generation failed"),
             "groth16" => client
                 .prove(&pk, stdin)
                 .groth16()
@@ -70,12 +77,21 @@ fn main() {
         proof.save(&proof_path).expect("Failed to save proof");
     }
 
+    let vkey = if args.mode.as_str() == "stark" {
+        let vk_bytes = bincode::serialize(&vk).unwrap();
+        hex::encode(vk_bytes)
+    } else {
+        "0x".to_owned()
+    };
+
     // Load the proof, extract the proof and public inputs, and serialize the appropriate fields.
     let proof = ZKMProofWithPublicValues::load(&proof_path).expect("Failed to load proof");
     let fixture = ProofData {
         proof: hex::encode(proof.bytes()),
         public_inputs: hex::encode(proof.public_values),
         vkey_hash: vk.bytes32(),
+        vkey,
+        zkm_version: proof.zkm_version,
         mode: args.mode,
     };
 
