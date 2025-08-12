@@ -7,8 +7,3 @@ zkm-build = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-verifier = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-zkvm = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-sdk = { git = "https://github.com/ProjectZKM/Ziren" }
-
-[patch."https://github.com/ProjectZKM/Ziren"]
-zkm-verifier = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-verifier" }
-zkm-zkvm = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-verifier" }
-zkm-sdk = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-verifier" }

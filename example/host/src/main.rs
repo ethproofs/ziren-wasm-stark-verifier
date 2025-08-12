@@ -3,6 +3,9 @@
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 use zkm_sdk::{include_elf, utils, HashableKey, ProverClient, ZKMProofWithPublicValues, ZKMStdin};
+use zkm_verifier::{
+    Groth16Verifier, PlonkVerifier, StarkVerifier, GROTH16_VK_BYTES, PLONK_VK_BYTES,
+};
 
 /// The ELF (executable and linkable format) file for the fibonacci guest.
 pub const FIBONACCI_ELF: &[u8] = include_elf!("fibonacci-guest");
@@ -57,23 +60,59 @@ fn main() {
     if args.prove {
         // Generate a proof for the specified program
         let proof = match args.mode.as_str() {
-            "stark" => client
-                .prove(&pk, stdin)
-                .compressed()
-                .run()
-                .expect("Stark proof generation failed"),
-            "groth16" => client
-                .prove(&pk, stdin)
-                .groth16()
-                .run()
-                .expect("Groth16 proof generation failed"),
-            "plonk" => client
-                .prove(&pk, stdin)
-                .plonk()
-                .run()
-                .expect("Plonk proof generation failed"),
+            "stark" => {
+                let proof = client
+                    .prove(&pk, stdin)
+                    .compressed()
+                    .run()
+                    .expect("Stark proof generation failed");
+
+                assert!(StarkVerifier::verify(
+                    proof.bytes().as_ref(),
+                    proof.public_values.as_ref(),
+                    bincode::serialize(&vk).unwrap().as_ref()
+                )
+                .is_ok());
+
+                proof
+            }
+            "groth16" => {
+                let proof = client
+                    .prove(&pk, stdin)
+                    .groth16()
+                    .run()
+                    .expect("Groth16 proof generation failed");
+
+                assert!(Groth16Verifier::verify(
+                    proof.bytes().as_ref(),
+                    proof.public_values.as_ref(),
+                    vk.bytes32().as_ref(),
+                    *GROTH16_VK_BYTES
+                )
+                .is_ok());
+
+                proof
+            }
+            "plonk" => {
+                let proof = client
+                    .prove(&pk, stdin)
+                    .plonk()
+                    .run()
+                    .expect("Plonk proof generation failed");
+
+                assert!(PlonkVerifier::verify(
+                    proof.bytes().as_ref(),
+                    proof.public_values.as_ref(),
+                    vk.bytes32().as_ref(),
+                    *PLONK_VK_BYTES
+                )
+                .is_ok());
+
+                proof
+            }
             _ => panic!("Invalid proof mode. Use 'groth16' or 'plonk'."),
         };
+
         proof.save(&proof_path).expect("Failed to save proof");
     }
 

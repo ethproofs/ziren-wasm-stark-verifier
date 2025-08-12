@@ -1,7 +1,9 @@
 //! A simple wrapper around the `zkm_verifier` crate.
 
 use wasm_bindgen::prelude::wasm_bindgen;
-use zkm_verifier::{Groth16Verifier, PlonkVerifier, StarkVerifier, GROTH16_VK_BYTES, PLONK_VK_BYTES};
+use zkm_verifier::{
+    Groth16Verifier, PlonkVerifier, StarkVerifier, GROTH16_VK_BYTES, PLONK_VK_BYTES,
+};
 
 /// Wrapper around [`zkm_verifier::StarkVerifier::verify`].
 #[wasm_bindgen]
