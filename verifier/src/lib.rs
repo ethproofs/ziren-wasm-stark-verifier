@@ -6,6 +6,18 @@ use zkm_verifier::{
 };
 
 /// Wrapper around [`zkm_verifier::StarkVerifier::verify`].
+/// 
+/// public_inputs: public values committed by the guest as a bincode-serialized byte array.
+///     For example:
+///     ```
+///     // Write the output of the program.
+///     //
+///     // Behind the scenes, this also compiles down to a system call which handles writing
+///     // outputs to the prover.
+///     zkm_zkvm::io::commit(&block_hash);
+///     ```
+/// Relative to `verify_stark_proof()`, it performs a consistency check between
+/// user-supplied public values and those committed in the proof.
 #[wasm_bindgen]
 pub fn verify_stark(proof: &[u8], public_inputs: &[u8], zkm_vk: &[u8]) -> bool {
     StarkVerifier::verify(proof, public_inputs, zkm_vk).is_ok()

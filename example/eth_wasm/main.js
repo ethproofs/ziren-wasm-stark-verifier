@@ -9,6 +9,8 @@ import * as wasm from "../../verifier/pkg/zkm_wasm_verifier.js"
 import fs from 'node:fs'
 
 const vkey = fs.readFileSync('../binaries/eth_vk.bin');
+
+// Download the proof from https://ethproofs.org/blocks/23143500 > Ziren
 const proof = fs.readFileSync('../binaries/23143500_ZKM_160838.txt');
 
 const startTime = performance.now();
