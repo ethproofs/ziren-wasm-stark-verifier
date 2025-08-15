@@ -11,6 +11,12 @@ pub fn verify_stark(proof: &[u8], public_inputs: &[u8], zkm_vk: &[u8]) -> bool {
     StarkVerifier::verify(proof, public_inputs, zkm_vk).is_ok()
 }
 
+/// Wrapper around [`zkm_verifier::StarkVerifier::verify`].
+#[wasm_bindgen]
+pub fn verify_stark_proof(proof: &[u8], zkm_vk: &[u8]) -> bool {
+    StarkVerifier::verify_proof(proof, zkm_vk).is_ok()
+}
+
 /// Wrapper around [`zkm_verifier::Groth16Verifier::verify`].
 ///
 /// We hardcode the Groth16 VK bytes to only verify Ziren proofs.

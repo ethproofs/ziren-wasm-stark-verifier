@@ -1,5 +1,11 @@
 [workspace]
-members = ["verifier", "example/guest", "example/host"]
+members = [
+    "verifier",
+    "example/guest",
+    "example/host",
+    "example/eth_guest",
+    "example/eth_host",
+]
 resolver = "2"
 
 [workspace.dependencies]
@@ -7,3 +13,8 @@ zkm-build = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-verifier = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-zkvm = { git = "https://github.com/ProjectZKM/Ziren" }
 zkm-sdk = { git = "https://github.com/ProjectZKM/Ziren" }
+
+[patch."https://github.com/ProjectZKM/Ziren"]
+zkm-verifier = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-proof" }
+zkm-zkvm = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-proof" }
+zkm-sdk = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-proof" }
