@@ -1,2 +1,6 @@
 target
 .env
+.DS_Store
+example/eth_wasm/node_modules
+example/wasm_example/node_modules
+verifier/pkg

@@ -3,8 +3,6 @@ members = [
     "verifier",
     "example/guest",
     "example/host",
-    "example/eth_guest",
-    "example/eth_host",
 ]
 resolver = "2"
 
