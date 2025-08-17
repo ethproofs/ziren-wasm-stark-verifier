@@ -1,17 +1,24 @@
 [package]
-name = "zkm-wasm-verifier"
-description = "A rust verifier for BN254 curve"
-keywords = ["zero-knowledge", "cryptography", "zkSNARK", "SNARK", "gnark"]
-categories = ["cryptography"]
-readme = "README.md"
-include = ["Cargo.toml", "src", "README.md"]
+name = "ziren-wasm-stark-verifier"
 edition = "2021"
-version = "1.0.0"
+version = "0.1.1"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 zkm-verifier.workspace = true
 wasm-bindgen = "0.2"
+js-sys = "0.3"
 
-# This is necessary for the wasm-bindgen.
-[lib]
-crate-type = ["cdylib", "rlib"]
+# Console logging for debugging
+console_error_panic_hook = "0.1"
+
+[dependencies.web-sys]
+version = "0.3"
+features = ["console"]
+
+# Optimize release builds
+[profile.release]
+opt-level = "s"
+lto = true
