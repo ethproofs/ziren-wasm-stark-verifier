@@ -1,0 +1,62 @@
+{
+  "name": "@ethproofs/ziren-wasm-stark-verifier",
+  "version": "0.1.1",
+  "description": "WASM wrapper for Ziren STARK verifier - verify proofs in browsers and Node.js",
+  "type": "module",
+  "main": "pkg/ziren-wasm-stark-verifier.js",
+  "module": "pkg/ziren-wasm-stark-verifier.js",
+  "types": "pkg/ziren-wasm-stark-verifier.d.ts",
+  "exports": {
+    ".": {
+      "types": "./pkg/ziren-wasm-stark-verifier.d.ts",
+      "import": "./pkg/ziren-wasm-stark-verifier.js",
+      "require": "./pkg/ziren-wasm-stark-verifier.js"
+    },
+    "./pkg/*": "./pkg/*"
+  },
+  "files": [
+    "pkg/",
+    "README.md",
+    "test-browser.html",
+    "test-serve.mjs"
+  ],
+  "scripts": {
+    "build": "wasm-pack build verifier --target bundler --out-dir ../pkg",
+    "build:node": "wasm-pack build verifier --target nodejs --out-dir ../pkg-node",
+    "build:web": "wasm-pack build verifier --target web --out-dir ../pkg-web",
+    "build:all": "npm run build && npm run build:node && npm run build:web",
+    "test": "npm run build && node test-serve.mjs",
+    "test:node": "npm run build:node && node test-node.mjs"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "stark",
+    "verifier",
+    "ziren",
+    "zero-knowledge",
+    "zk",
+    "proof",
+    "blockchain",
+    "cryptography"
+  ],
+  "author": "Ethproofs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethproofs/ziren-wasm-stark-verifier"
+  },
+  "homepage": "https://github.com/ethproofs/ziren-wasm-stark-verifier#readme",
+  "bugs": {
+    "url": "https://github.com/ethproofs/ziren-wasm-stark-verifier/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.0.0"
+  }
+}
