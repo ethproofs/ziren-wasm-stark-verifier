@@ -1,16 +1,16 @@
 {
   "name": "@ethproofs/ziren-wasm-stark-verifier",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "WASM wrapper for Ziren STARK verifier - verify proofs in browsers and Node.js",
   "type": "module",
-  "main": "pkg/ziren-wasm-stark-verifier.js",
-  "module": "pkg/ziren-wasm-stark-verifier.js",
-  "types": "pkg/ziren-wasm-stark-verifier.d.ts",
+  "main": "pkg/ziren_wasm_stark_verifier.js",
+  "module": "pkg/ziren_wasm_stark_verifier.js",
+  "types": "pkg/ziren_wasm_stark_verifier.d.ts",
   "exports": {
     ".": {
-      "types": "./pkg/ziren-wasm-stark-verifier.d.ts",
-      "import": "./pkg/ziren-wasm-stark-verifier.js",
-      "require": "./pkg/ziren-wasm-stark-verifier.js"
+      "types": "./pkg/ziren_wasm_stark_verifier.d.ts",
+      "import": "./pkg/ziren_wasm_stark_verifier.js",
+      "require": "./pkg/ziren_wasm_stark_verifier.js"
     },
     "./pkg/*": "./pkg/*"
   },

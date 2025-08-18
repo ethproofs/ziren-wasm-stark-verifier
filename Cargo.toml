@@ -7,10 +7,10 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-zkm-build = { git = "https://github.com/ProjectZKM/Ziren" }
-zkm-verifier = { git = "https://github.com/ProjectZKM/Ziren" }
-zkm-zkvm = { git = "https://github.com/ProjectZKM/Ziren" }
-zkm-sdk = { git = "https://github.com/ProjectZKM/Ziren" }
+zkm-build = { git = "https://github.com/ProjectZKM/Ziren", branch = "main" }
+zkm-verifier = { git = "https://github.com/ProjectZKM/Ziren", branch = "main" }
+zkm-zkvm = { git = "https://github.com/ProjectZKM/Ziren", branch = "main" }
+zkm-sdk = { git = "https://github.com/ProjectZKM/Ziren", branch = "main" }
 
 [patch."https://github.com/ProjectZKM/Ziren"]
 zkm-verifier = { git = "https://github.com/felicityin/zkMIPS", branch = "stark-proof" }
