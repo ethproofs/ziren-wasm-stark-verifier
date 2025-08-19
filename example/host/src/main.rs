@@ -67,12 +67,12 @@ fn main() {
                     .run()
                     .expect("Stark proof generation failed");
 
-                assert!(StarkVerifier::verify(
+                StarkVerifier::verify(
                     proof.bytes().as_ref(),
                     proof.public_values.as_ref(),
-                    bincode::serialize(&vk).unwrap().as_ref()
+                    bincode::serialize(&vk).unwrap().as_ref(),
                 )
-                .is_ok());
+                .expect("Stark proof verification failed");
 
                 proof
             }
@@ -83,13 +83,13 @@ fn main() {
                     .run()
                     .expect("Groth16 proof generation failed");
 
-                assert!(Groth16Verifier::verify(
+                Groth16Verifier::verify(
                     proof.bytes().as_ref(),
                     proof.public_values.as_ref(),
                     vk.bytes32().as_ref(),
-                    *GROTH16_VK_BYTES
+                    *GROTH16_VK_BYTES,
                 )
-                .is_ok());
+                .expect("Groth16 proof verification failed");
 
                 proof
             }
@@ -100,13 +100,13 @@ fn main() {
                     .run()
                     .expect("Plonk proof generation failed");
 
-                assert!(PlonkVerifier::verify(
+                PlonkVerifier::verify(
                     proof.bytes().as_ref(),
                     proof.public_values.as_ref(),
                     vk.bytes32().as_ref(),
-                    *PLONK_VK_BYTES
+                    *PLONK_VK_BYTES,
                 )
-                .is_ok());
+                .expect("Plonk proof verification failed");
 
                 proof
             }

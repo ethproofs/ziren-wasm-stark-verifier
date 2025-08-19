@@ -31,7 +31,7 @@ pub fn main() {
 ///     //
 ///     // Behind the scenes, this also compiles down to a system call which handles writing
 ///     // outputs to the prover.
-///     zkm_zkvm::io::commit(&block_hash);
+///     // zkm_zkvm::io::commit(&block_hash);
 ///     ```
 /// Relative to `verify_stark_proof()`, it performs a consistency check between
 /// user-supplied public values and those committed in the proof.

@@ -1,6 +1,6 @@
 {
   "name": "@ethproofs/ziren-wasm-stark-verifier",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "WASM wrapper for Ziren STARK verifier - verify proofs in browsers and Node.js",
   "type": "module",
   "main": "pkg/ziren_wasm_stark_verifier.js",
