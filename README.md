@@ -4,7 +4,7 @@ WebAssembly bindings for the Ziren STARK verifier.
 
 ## Overview
 
-This package is a fork of [ziren-wasm-verifier](https://github.com/ProjectZKM/ziren-wasm-stark-verifier) by ProjectZKM. It has been modified and published to perform proof verification in-browser on Ethproofs. The WASM wrapper exposes `verify_proof` from `zkm-verifier`'s `StarkVerifier`, allowing STARK proof verification in web browsers and Node.js environments.
+This package is a fork of [ziren-wasm-verifier](https://github.com/ProjectZKM/ziren-wasm-verifier) by ProjectZKM. It has been modified and published to perform proof verification in-browser on Ethproofs. The WASM wrapper exposes `verify_proof` from `zkm-verifier`'s `StarkVerifier`, allowing STARK proof verification in web browsers and Node.js environments.
 
 ## Usage
 
