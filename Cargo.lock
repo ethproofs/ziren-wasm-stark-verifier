@@ -7330,7 +7330,7 @@ dependencies = [
 
 [[package]]
 name = "ziren-wasm-stark-verifier"
-version = "0.1.7"
+version = "0.1.9"
 dependencies = [
  "console_error_panic_hook",
  "js-sys",
