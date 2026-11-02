@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      wasm-pack:
+        specifier: ^0.0.0
+        version: 0.0.0
+
+packages:
+
+  wasm-pack@0.0.0:
+    resolution: {integrity: sha512-0BUQsu8p7oMogWBVQHY0vT+amMPOm4eBqLVDC0N57yV7b4Scn/iMZ5q0g0vGvweTiTz/RIGElmJ4B0+Oo/RGNg==}
+
+snapshots:
+
+  wasm-pack@0.0.0: {}

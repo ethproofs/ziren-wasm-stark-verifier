@@ -18,6 +18,11 @@ console_error_panic_hook = "0.1"
 version = "0.3"
 features = ["console"]
 
+# getrandom 0.2 (pulled in transitively via rand_core 0.6) refuses to compile on
+# wasm32-unknown-unknown unless its "js" feature is enabled.
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+
 # Optimize release builds
 [profile.release]
 opt-level = "s"
