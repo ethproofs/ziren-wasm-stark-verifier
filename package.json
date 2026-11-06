@@ -1,6 +1,6 @@
 {
   "name": "@ethproofs/ziren-wasm-stark-verifier",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "WASM wrapper for Ziren STARK verifier - verify proofs in browsers and Node.js",
   "type": "module",
   "main": "pkg/ziren_wasm_stark_verifier.js",
@@ -9,23 +9,20 @@
   "exports": {
     ".": {
       "types": "./pkg/ziren_wasm_stark_verifier.d.ts",
-      "import": "./pkg/ziren_wasm_stark_verifier.js",
-      "require": "./pkg/ziren_wasm_stark_verifier.js"
+      "import": "./pkg/ziren_wasm_stark_verifier.js"
     },
     "./pkg/*": "./pkg/*"
   },
   "files": [
     "pkg/",
-    "README.md",
-    "test-browser.html",
-    "test-serve.mjs"
+    "README.md"
   ],
   "scripts": {
-    "build": "wasm-pack build verifier --target bundler --out-dir ../pkg",
+    "build": "wasm-pack build verifier --target bundler --out-dir ../pkg && rm -f pkg/.gitignore",
     "build:node": "wasm-pack build verifier --target nodejs --out-dir ../pkg-node",
     "build:web": "wasm-pack build verifier --target web --out-dir ../pkg-web",
     "build:all": "npm run build && npm run build:node && npm run build:web",
-    "test": "npm run build && node test-serve.mjs",
+    "test": "npm run build:web && node test-serve.mjs",
     "test:node": "npm run build:node && node test-node.mjs"
   },
   "keywords": [
